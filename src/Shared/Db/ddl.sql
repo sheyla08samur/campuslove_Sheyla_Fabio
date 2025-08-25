@@ -12,9 +12,7 @@ CREATE TABLE usuario (
   genero VARCHAR (20),
   intereses TEXT,
   carrera VARCHAR (100),
-  frase TEXT,
-  meGusta INT,
-  noMeGusta INT
+  frase TEXT
 );
 
 CREATE TABLE historialInteraccion (
@@ -32,3 +30,21 @@ CREATE TABLE matching(
   FOREIGN KEY (usuario1) REFERENCES usuario(id),
   FOREIGN KEY (usuario2) REFERENCES usuario(id)
 );
+
+CREATE TABLE meGusta(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  emisorId INT,
+  receptorId INT,
+  fechaMeGusta DATETIME,
+  FOREIGN KEY (emisorId) REFERENCES usurio(id),
+  FOREIGN KEY (receptorId) REFERENCES usurio(id)
+)
+
+CREATE TABLE noMeGusta(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  emisorId INT,
+  receptorId INT,
+  fechaNoMeGusta DATETIME,
+  FOREIGN KEY (emisorId) REFERENCES usurio(id),
+  FOREIGN KEY (receptorId) REFERENCES usurio(id)
+)
