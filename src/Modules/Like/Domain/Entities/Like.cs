@@ -1,0 +1,20 @@
+using System;
+using Campuslove_Sheyla_Fabio.src.Modules.User.Domain.Entities;
+
+namespace Campuslove_Sheyla_Fabio.src.Modules.Liking.Entities
+{
+    public class Like
+    {
+        public int Id { get; set; }
+
+        // Usuario que da el like
+        public int EmisorUsuarioId { get; set; }
+        public Usuario? EmisorUsuario { get; set; }
+
+        // Usuario que recibe el like
+        public int ReceptorUsuarioId { get; set; }
+        public Usuario? ReceptorUsuario { get; set; }
+
+        public DateTime Fecha { get; set; } = DateTime.UtcNow;
+    }
+}
