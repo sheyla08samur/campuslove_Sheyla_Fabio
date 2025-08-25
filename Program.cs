@@ -1,2 +1,9 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Campuslove_Sheyla_Fabio.src.UI;
+
+internal class Program
+{
+    private static void Main(string[] args)
+    {
+        MenuHandler.MostrarMenuHandler();
+    }
+}
