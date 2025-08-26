@@ -9,7 +9,7 @@ namespace Campuslove_Sheyla_Fabio.src.Shared.Configurations
     {
         public void Configure(EntityTypeBuilder<Like> builder)
         {
-            builder.ToTable("Likes");
+            builder.ToTable("likings");
 
             builder.HasKey(l => l.Id);
 

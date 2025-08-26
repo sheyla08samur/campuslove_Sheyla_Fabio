@@ -2,49 +2,45 @@ DROP DATABASE IF EXISTS campuslove;
 CREATE DATABASE campuslove;
 USE campuslove;
 
-
 CREATE TABLE usuario (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR (100),
-  usuarioEmail VARCHAR(100) UNIQUE,
-  contrasena  VARCHAR (100),
-  edad SMALLINT,
-  genero VARCHAR (20),
-  intereses TEXT,
-  carrera VARCHAR (100),
-  frase TEXT
+  nombre VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  contrasena VARCHAR(100) NOT NULL,
+  edad SMALLINT NOT NULL,
+  genero VARCHAR(20),
+  intereses TEXT NOT NULL,
+  carrera VARCHAR(100) NOT NULL,
+  frase TEXT NOT NULL,
+  meGusta INT DEFAULT 0,
+  noMeGusta INT DEFAULT 0
 );
+
 
 CREATE TABLE historialInteraccion (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  tipoInteraccion ENUM("Like", "Dislike"),
-  usuarioReceptorId INT,
-  FOREIGN KEY (usuarioReceptorId) REFERENCES usuario(id)
+  tipo VARCHAR(20) NOT NULL,
+  usuarioReceptorId INT NOT NULL,
+  FOREIGN KEY (usuarioReceptorId) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
-CREATE TABLE matching(
-  usuario1 INT,
-  usuario2 INT,
-  fechaDelMatch DATETIME,
-  PRIMARY KEY (usuario1, usuario2),
-  FOREIGN KEY (usuario1) REFERENCES usuario(id),
-  FOREIGN KEY (usuario2) REFERENCES usuario(id)
+
+CREATE TABLE match (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user1Id INT NOT NULL,
+  user2Id INT NOT NULL,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user1Id) REFERENCES usuario(id) ON DELETE RESTRICT,
+  FOREIGN KEY (user2Id) REFERENCES usuario(id) ON DELETE RESTRICT
 );
 
-CREATE TABLE meGusta(
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  emisorId INT,
-  receptorId INT,
-  fechaMeGusta DATETIME,
-  FOREIGN KEY (emisorId) REFERENCES usurio(id),
-  FOREIGN KEY (receptorId) REFERENCES usurio(id)
-)
 
-CREATE TABLE noMeGusta(
+CREATE TABLE likings (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  emisorId INT,
-  receptorId INT,
-  fechaNoMeGusta DATETIME,
-  FOREIGN KEY (emisorId) REFERENCES usurio(id),
-  FOREIGN KEY (receptorId) REFERENCES usurio(id)
-)
+  emisorUsuarioId INT NOT NULL,
+  receptorUsuarioId INT NOT NULL,
+  fecha DATETIME NOT NULL,
+  FOREIGN KEY (emisorUsuarioId) REFERENCES usuario(id) ON DELETE RESTRICT,
+  FOREIGN KEY (receptorUsuarioId) REFERENCES usuario(id) ON DELETE RESTRICT
+);
+

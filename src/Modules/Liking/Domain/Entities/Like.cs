@@ -1,8 +1,10 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Campuslove_Sheyla_Fabio.src.Modules.User.Domain.Entities;
 
 namespace Campuslove_Sheyla_Fabio.src.Modules.Liking.Entities
 {
+    [Table("likings")]
     public class Like
     {
         public int Id { get; set; }
