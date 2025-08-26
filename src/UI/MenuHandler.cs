@@ -116,9 +116,72 @@ namespace Campuslove_Sheyla_Fabio.src.UI
             else
             {
                 AnsiConsole.MarkupLine($"[bold green]\n✅ Bienvenido {usuario.Nombre}![/]");
+                Console.ReadKey();
+                MenuHome();
             }
 
             Thread.Sleep(2000);
+        }
+
+
+        private static void MenuHome()
+        {
+            AnsiConsole.Clear();
+            AnsiConsole.Write(
+                    new FigletText("Home")
+                    .Centered()
+                    .Color(Color.Pink1));
+            AnsiConsole.MarkupLine("[bold blue]Menu Principal[/]");
+
+                var selection = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                    .Title("[bold]Seleccione una opción[/]")
+                    .AddChoices(new[]
+                    {
+                        "0. Ver mis matches",
+                        "1. Ver mis estadisticas",
+                        "2. Conocer personas",
+                        "3. Salir"
+                    }));
+
+                switch (selection[0])
+                {
+                    case '0':
+                        LoadingAnimation.MostrarAnimacionCarga("Espera un momento...");
+                        AnsiConsole.Clear();
+                        ConsultarTodosAsync();
+                        break;
+                    case '1':
+                        LoadingAnimation.MostrarAnimacionCarga("Espera un momento...");
+                        AnsiConsole.Clear();
+                        // Mostrar menu    aqui falta contador 
+                        break;
+                    case '2':
+                        AnsiConsole.Clear();
+                        AnsiConsole.MarkupLine("[bold red]¡Gracias por usar CampusLove![/]");
+                        var usuarios = UsuarioService.SearchAsync(usuario); // lista todos
+                        foreach (var u in usuarios)
+                        {
+                            Console.WriteLine($"[{u.Id}] {u.Nombre} - {u.Carrera} - {u.Intereses}");
+                        }
+
+                        break;
+                    case '3':
+                        AnsiConsole.Clear();
+                        AnsiConsole.MarkupLine("[bold red]¡Gracias por usar CampusLove![/]");
+
+                        break;
+                    default:
+                        AnsiConsole.MarkupLine("[bold red]Opción no válida. Por favor, intente de nuevo.[/]");
+                        Thread.Sleep(2000);
+                        MostrarMenuHandler(usuarioService);
+                        break;
+                }
+        }
+
+        private static void ConsultarTodosAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }
