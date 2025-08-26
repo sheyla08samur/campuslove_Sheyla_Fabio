@@ -17,5 +17,7 @@ namespace Campuslove_Sheyla_Fabio.src.Modules.User.Applications.Interfaces
         Task<int> GetDislikesReceivedAsync(int userId);
         Task<int> GetMatchesAsync(int userId);
         Task<Usuario?> GetProfileAsync(int id);
+        Task DarLikeAsync(int emisorId, int receptorId, bool esLike);
+
     }
 }

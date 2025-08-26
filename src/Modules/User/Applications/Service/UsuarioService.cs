@@ -2,6 +2,7 @@ using Campuslove_Sheyla_Fabio.src.Shared.Context;
 using Campuslove_Sheyla_Fabio.src.Modules.User.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Campuslove_Sheyla_Fabio.src.Modules.User.Applications.Interfaces;
+using Campuslove_Sheyla_Fabio.src.Modules.Liking.Entities;
 
 namespace Campuslove_Sheyla_Fabio.src.Modules.User.Applications.Service
 {
@@ -22,9 +23,9 @@ namespace Campuslove_Sheyla_Fabio.src.Modules.User.Applications.Service
 
         public async Task<int> GetLikesReceivedAsync(Usuario usuario)
         {
-        // If LikesReceived is a navigation property and may not be loaded, consider loading it:
-        await _context.Entry(usuario).Collection(u => u.LikesReceived).LoadAsync();
-        return usuario.LikesReceived.Count;
+            // If LikesReceived is a navigation property and may not be loaded, consider loading it:
+            await _context.Entry(usuario).Collection(u => u.LikesReceived).LoadAsync();
+            return usuario.LikesReceived.Count;
         }
 
         public async Task RegisterAsync(Usuario usuario)
@@ -48,7 +49,36 @@ namespace Campuslove_Sheyla_Fabio.src.Modules.User.Applications.Service
 
             return await query.ToListAsync();
         }
+        public async Task<int> GetMatchesAsync(int userId)
+        {
+            return await _context.Matches
+                .CountAsync(m => m.User1Id == userId || m.User2Id == userId);
+        }
+        public async Task<Usuario?> GetProfileAsync(int id)
+        {
+            return await _context.Usuarios.FirstOrDefaultAsync(u => u.Id == id);
+        }
+        public async Task DarLikeAsync(int emisorId, int receptorId, bool esLike)
+        {
+            var existing = await _context.Likes
+                .FirstOrDefaultAsync(l => l.EmisorUsuarioId == emisorId && l.ReceptorUsuarioId == receptorId);
 
+            if (existing != null)
+            {
+                existing.IsLike = esLike; // Actualiza si ya existía
+            }
+            else
+            {
+                _context.Likes.Add(new Like
+                {
+                    EmisorUsuarioId = emisorId,
+                    ReceptorUsuarioId = receptorId,
+                    IsLike = esLike
+                });
+            }
+
+            await _context.SaveChangesAsync();
+        }
         public async Task<int> GetLikesReceivedAsync(int userId)
         {
             return await _context.Likes
@@ -61,14 +91,16 @@ namespace Campuslove_Sheyla_Fabio.src.Modules.User.Applications.Service
                 .CountAsync(l => l.ReceptorUsuarioId == userId && !l.IsLike);
         }
 
-        public async Task<int> GetMatchesAsync(int userId)
+        public async Task<int> GetLikesGivenAsync(int userId)
         {
-            return await _context.Matches
-                .CountAsync(m => m.User1Id == userId || m.User2Id == userId);
+            return await _context.Likes
+                .CountAsync(l => l.EmisorUsuarioId == userId && l.IsLike);
         }
-        public async Task<Usuario?> GetProfileAsync(int id)
+
+        public async Task<int> GetDislikesGivenAsync(int userId)
         {
-            return await _context.Usuarios.FirstOrDefaultAsync(u => u.Id == id);
+            return await _context.Likes
+                .CountAsync(l => l.EmisorUsuarioId == userId && !l.IsLike);
         }
     }
 }

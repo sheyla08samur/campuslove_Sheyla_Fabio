@@ -14,7 +14,7 @@ namespace Campuslove_Sheyla_Fabio.src.UI
 {
     public class MenuHandler
     {
-        public static void MostrarMenuHandler(IUsuarioService usuarioService) // ✅ recibe el servicio
+        public static async Task MostrarMenuHandler(IUsuarioService usuarioService)
         {
             while (true)
             {
@@ -47,7 +47,7 @@ namespace Campuslove_Sheyla_Fabio.src.UI
                     case '1':
                         LoadingAnimation.MostrarAnimacionCarga("Espera un momento...");
                         AnsiConsole.Clear();
-                        IniciarSesion(usuarioService);
+                        await IniciarSesion(usuarioService);
                         break;
                     case '2':
                         AnsiConsole.Clear();
@@ -99,7 +99,7 @@ namespace Campuslove_Sheyla_Fabio.src.UI
             Thread.Sleep(2000);
         }
 
-        private static void IniciarSesion(IUsuarioService usuarioService)
+        private static async Task IniciarSesion(IUsuarioService usuarioService)
         {
             var email = AnsiConsole.Ask<string>("Introduce tu [green]email[/]: ");
             var contrasena = AnsiConsole.Prompt(
@@ -118,13 +118,13 @@ namespace Campuslove_Sheyla_Fabio.src.UI
                 AnsiConsole.MarkupLine($"[bold green]\n✅ Bienvenido {usuario.Nombre}![/]");
                 Console.ReadKey();
                 // ✅ le paso el usuario a MenuHome
-                MenuHome(usuarioService, usuario);
+                await MenuHome(usuarioService, usuario);
             }
 
             Thread.Sleep(2000);
         }
 
-        private static void MenuHome(IUsuarioService usuarioService, Usuario usuario)
+        private static async Task MenuHome(IUsuarioService usuarioService, Usuario usuario)
         {
             AnsiConsole.Clear();
             AnsiConsole.Write(
@@ -218,26 +218,14 @@ namespace Campuslove_Sheyla_Fabio.src.UI
                                 }));
                             switch (likingOpt[0])
                             {
-                                case '0':
-                                    var like = new Like
-                                    {
-                                        UsuarioId = usuario.Id,
-                                        UsuarioLikeId = usuarioSeleccionado.Id,
-                                        EsLike = true
-                                    };
-                                    // Aquí deberías llamar al servicio para guardar el like
-                                    AnsiConsole.MarkupLine("[bold green]✅ Has dado like![/]");
-                                    break;
-                                case '1':
-                                    var dislike = new Like
-                                    {
-                                        UsuarioId = usuario.Id,
-                                        UsuarioLikeId = usuarioSeleccionado.Id,
-                                        EsLike = false
-                                    };
-                                    // Aquí deberías llamar al servicio para guardar el dislike
-                                    AnsiConsole.MarkupLine("[bold green]✅ Has dado dislike![/]");
-                                    break;
+                                    case '0': // Like
+                                        await usuarioService.DarLikeAsync(usuario.Id, usuarioSeleccionado.Id, true);
+                                        AnsiConsole.MarkupLine("[bold green]✅ Has dado like![/]");
+                                        break;
+                                    case '1': // Dislike
+                                        await usuarioService.DarLikeAsync(usuario.Id, usuarioSeleccionado.Id, false);
+                                        AnsiConsole.MarkupLine("[bold green]✅ Has dado dislike![/]");
+                                        break;
                                 case '2':
                                     break;
                                 default:
