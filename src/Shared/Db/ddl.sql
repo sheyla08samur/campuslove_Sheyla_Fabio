@@ -36,11 +36,13 @@ CREATE TABLE matching (
 
 
 CREATE TABLE likings (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  emisorUsuarioId INT NOT NULL,
-  receptorUsuarioId INT NOT NULL,
-  fecha DATETIME NOT NULL,
-  FOREIGN KEY (emisorUsuarioId) REFERENCES usuario(id) ON DELETE RESTRICT,
-  FOREIGN KEY (receptorUsuarioId) REFERENCES usuario(id) ON DELETE RESTRICT
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    EmisorUsuarioId INT NOT NULL,
+    ReceptorUsuarioId INT NOT NULL,
+    EsLike BOOLEAN NOT NULL,
+    Fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT FK_Emisor FOREIGN KEY (EmisorUsuarioId) REFERENCES usuario(Id),
+    CONSTRAINT FK_Receptor FOREIGN KEY (ReceptorUsuarioId) REFERENCES usuario(Id)
 );
+
 

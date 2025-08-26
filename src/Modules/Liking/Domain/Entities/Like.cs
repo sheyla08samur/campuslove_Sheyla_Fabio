@@ -17,6 +17,9 @@ namespace Campuslove_Sheyla_Fabio.src.Modules.Liking.Entities
         public int ReceptorUsuarioId { get; set; }
         public Usuario? ReceptorUsuario { get; set; }
 
+        // True = Like 👍 | False = Dislike 👎
+        public bool IsLike { get; set; }
+
         public DateTime Fecha { get; set; } = DateTime.UtcNow;
     }
 }

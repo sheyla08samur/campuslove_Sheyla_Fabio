@@ -30,6 +30,10 @@ namespace Campuslove_Sheyla_Fabio.src.Shared.Configurations
             builder.Property(l => l.ReceptorUsuarioId).IsRequired();
             builder.Property(l => l.Fecha)
                    .IsRequired();
+
+            // Nuevo campo: indica si es Like (true) o Dislike (false)
+            builder.Property(l => l.IsLike)
+                   .IsRequired();
         }
     }
 }
