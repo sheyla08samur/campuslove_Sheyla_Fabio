@@ -1,7 +1,7 @@
-INSERT INTO usuarios(nombre, usuarioEmail, contraseña, edad, genero, intereses, carrera, frase, meGusta, noMeGusta) VALUES 
-('María', 22, 'F', 'Ingeniería de Sistemas', 'Videojuegos, Música', 'Buscando bugs en corazones 💻❤️'),
-('Juan', 24, 'F', 'Diseño Gráfico', 'Arte, Cine', 'Un match y te diseño el futuro 🎨'),
-('Laura', 21, 'F', 'Psicología', 'Lectura, Café', 'Te escucho con el corazón ☕📚'),
-('Carlos', 23, 'F', 'Medicina', 'Deporte, Series', 'El mejor remedio: una buena cita 🩺🍿'),
-('Andrea', 22, 'F', 'Derecho', 'Debates, Viajes', 'Argumenta tu amor 💼✈️'),
-('Luis', 25, 'F', 'Administración', 'Finanzas, Ajedrez', 'Invertir en amor, la mejor decisión 💰♟️');
+INSERT INTO usuario (nombre, email, contrasena, edad, genero, intereses, carrera, frase, meGusta, noMeGusta) VALUES
+('María', 'maria@example.com', '1234', 22, 'F', 'Videojuegos, Música', 'Ingeniería de Sistemas', 'Buscando bugs en corazones 💻❤️', 0, 0),
+('Juan', 'juan@example.com', '1234', 24, 'M', 'Arte, Cine', 'Diseño Gráfico', 'Un match y te diseño el futuro 🎨', 0, 0),
+('Laura', 'laura@example.com', '1234', 21, 'F', 'Lectura, Café', 'Psicología', 'Te escucho con el corazón ☕📚', 0, 0),
+('Carlos', 'carlos@example.com', '1234', 23, 'M', 'Deporte, Series', 'Medicina', 'El mejor remedio: una buena cita 🩺🍿', 0, 0),
+('Andrea', 'andrea@example.com', '1234', 22, 'F', 'Debates, Viajes', 'Derecho', 'Argumenta tu amor 💼✈️', 0, 0),
+('Luis', 'luis@example.com', '1234', 25, 'M', 'Finanzas, Ajedrez', 'Administración', 'Invertir en amor, la mejor decisión 💰♟️', 0, 0);
