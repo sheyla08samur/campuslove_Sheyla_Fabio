@@ -152,6 +152,7 @@ namespace Campuslove_Sheyla_Fabio.src.UI
                     var matches0 = usuarioService.GetMatchesAsync(usuario.Id).Result;
                     AnsiConsole.MarkupLine($"[bold green]Tienes {matches0} matches![/]");
                     Console.ReadKey();
+                    await MenuHome(usuarioService, usuario);
                     break;
                 case '1':
                     AnsiConsole.Clear();
@@ -165,15 +166,13 @@ namespace Campuslove_Sheyla_Fabio.src.UI
                     m_estadisticas.Border = TableBorder.Rounded;
                     m_estadisticas.AddColumn("Tipo");
                     m_estadisticas.AddColumn("Cantidad");
-
-                    m_estadisticas.AddRow("Mis Likes", usuario.meGusta.ToString());
-                    m_estadisticas.AddRow("Mis Dislikes", usuario.noMeGusta.ToString());
                     m_estadisticas.AddRow("Likes Recibidos", likesRecibidos.ToString());
                     m_estadisticas.AddRow("Dislikes Recibidos", dislikesRecibidos.ToString());
                     m_estadisticas.AddRow("Matches", matches.ToString());
 
                     AnsiConsole.Write(m_estadisticas);
                     Console.ReadKey();
+                    await MenuHome(usuarioService, usuario);
                     break;
                 case '2':
                     AnsiConsole.Clear();
@@ -244,6 +243,8 @@ namespace Campuslove_Sheyla_Fabio.src.UI
                     {
                         AnsiConsole.MarkupLine("[bold red]ID inválido[/]");
                     }
+                    Console.ReadKey();
+                    await MenuHome(usuarioService, usuario);
                     break;
                 case '3':
                     AnsiConsole.Clear();
@@ -255,12 +256,6 @@ namespace Campuslove_Sheyla_Fabio.src.UI
                     Thread.Sleep(2000);
                     break;
             }
-        }
-
-
-        private static void ConsultarTodosAsync()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -7,20 +7,17 @@ using Campuslove_Sheyla_Fabio.src.Modules.User.Applications.Interfaces;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    private static async Task Main(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
         optionsBuilder.UseMySql(
-            "server=localhost;database=campuslove;user=root;password=12345678;",
+            "server=localhost;database=campuslove;user=root;password=Fabioandres2007;",
             new MySqlServerVersion(new Version(8, 0, 36))
         );
 
         var context = new AppDbContext(optionsBuilder.Options);
 
         IUsuarioService usuarioService = new UsuarioService(context);
-
-        // ✅ Pasamos el servicio ya configurado al menú
-        MenuHandler.MostrarMenuHandler(usuarioService);
-
+        await MenuHandler.MostrarMenuHandler(usuarioService);
     }
 }
