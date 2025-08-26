@@ -195,17 +195,57 @@ namespace Campuslove_Sheyla_Fabio.src.UI
                             AnsiConsole.Clear();
                             AnsiConsole.MarkupLine("[bold yellow]Información detallada del usuario[/]");
                             Console.WriteLine($@"
-            ID: {usuarioSeleccionado.Id}
-            Nombre: {usuarioSeleccionado.Nombre}
-            Email: {usuarioSeleccionado.Email}
-            Edad: {usuarioSeleccionado.Edad}
-            Género: {usuarioSeleccionado.Genero}
-            Carrera: {usuarioSeleccionado.Carrera}
-            Intereses: {usuarioSeleccionado.Intereses}
-            Frase: {usuarioSeleccionado.Frase}
-            Me Gusta: {usuarioSeleccionado.meGusta}
-            No Me Gusta: {usuarioSeleccionado.noMeGusta}
-            ");
+                            ID: {usuarioSeleccionado.Id}
+                            Nombre: {usuarioSeleccionado.Nombre}
+                            Email: {usuarioSeleccionado.Email}
+                            Edad: {usuarioSeleccionado.Edad}
+                            Género: {usuarioSeleccionado.Genero}
+                            Carrera: {usuarioSeleccionado.Carrera}
+                            Intereses: {usuarioSeleccionado.Intereses}
+                            Frase: {usuarioSeleccionado.Frase}
+                            Me Gusta: {usuarioSeleccionado.meGusta}
+                            No Me Gusta: {usuarioSeleccionado.noMeGusta}
+                            ");
+
+                            var likingOpt = AnsiConsole.Prompt(
+                                new SelectionPrompt<string>()
+                                .Title("[bold]Seleccione una opción[/]")
+                                .AddChoices(new[]
+                                {
+                                    "0. Like",
+                                    "1. Dislike",
+                                    "2. Salir"
+                                }));
+                            switch (likingOpt[0])
+                            {
+                                case '0':
+                                    var like = new Like
+                                    {
+                                        UsuarioId = usuario.Id,
+                                        UsuarioLikeId = usuarioSeleccionado.Id,
+                                        EsLike = true
+                                    };
+                                    // Aquí deberías llamar al servicio para guardar el like
+                                    AnsiConsole.MarkupLine("[bold green]✅ Has dado like![/]");
+                                    break;
+                                case '1':
+                                    var dislike = new Like
+                                    {
+                                        UsuarioId = usuario.Id,
+                                        UsuarioLikeId = usuarioSeleccionado.Id,
+                                        EsLike = false
+                                    };
+                                    // Aquí deberías llamar al servicio para guardar el dislike
+                                    AnsiConsole.MarkupLine("[bold green]✅ Has dado dislike![/]");
+                                    break;
+                                case '2':
+                                    break;
+                                default:
+                                    AnsiConsole.MarkupLine("[bold red]Opción no válida. Por favor, intente de nuevo.[/]");
+                                    Thread.Sleep(2000);
+                                    break;
+                            }
+
                         }
                         else
                         {
@@ -216,6 +256,15 @@ namespace Campuslove_Sheyla_Fabio.src.UI
                     {
                         AnsiConsole.MarkupLine("[bold red]ID inválido[/]");
                     }
+                    break;
+                case '3':
+                    AnsiConsole.Clear();
+                    AnsiConsole.MarkupLine("[bold red]¡Gracias por usar CampusLove![/]");
+                    Environment.Exit(0);
+                    break;
+                default:
+                    AnsiConsole.MarkupLine("[bold red]Opción no válida. Por favor, intente de nuevo.[/]");
+                    Thread.Sleep(2000);
                     break;
             }
         }
