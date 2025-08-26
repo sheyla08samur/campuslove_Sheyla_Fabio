@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Campuslove_Sheyla_Fabio.src.Modules.User.Applications.Interfaces;
 using Campuslove_Sheyla_Fabio.src.Modules.User.Domain.Entities;
 
+
 namespace Campuslove_Sheyla_Fabio.src.Modules.User.Applications.Service
 {
     public class UsuarioService : IUsuarioService

@@ -8,7 +8,7 @@ namespace Campuslove_Sheyla_Fabio.src.Modules.Matching.Infrastructure.Configurat
     {
         public void Configure(EntityTypeBuilder<Match> builder)
         {
-            builder.ToTable("match");
+            builder.ToTable("matching");
 
             builder.HasKey(m => m.Id);
 

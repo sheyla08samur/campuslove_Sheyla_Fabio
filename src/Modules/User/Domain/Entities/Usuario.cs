@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Campuslove_Sheyla_Fabio.src.Modules.Liking.Entities;
-using MatchEntity = Campuslove_Sheyla_Fabio.src.Modules.Matching.Domain.Entities.Match;
+using Campuslove_Sheyla_Fabio.src.Modules.Matching.Domain.Entities;
 
 
 
@@ -29,8 +29,8 @@ namespace Campuslove_Sheyla_Fabio.src.Modules.User.Domain.Entities
         public ICollection<Like> LikesGiven { get; set; } = new List<Like>();
         public ICollection<Like> LikesReceived { get; set; } = new List<Like>();
 
-        public ICollection<MatchEntity> MatchesAsUser1 { get; set; } = new List<MatchEntity>();
-        public ICollection<MatchEntity> MatchesAsUser2 { get; set; } = new List<MatchEntity>();
+        public ICollection<Match> MatchesAsUser1 { get; set; } = new List<Match>();
+        public ICollection<Match> MatchesAsUser2 { get; set; } = new List<Match>();
 
 
 

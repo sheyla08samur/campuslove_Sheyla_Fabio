@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using campuslove_Sheyla_Fabio.src.Shared.Context;
+using Campuslove_Sheyla_Fabio.src.Shared.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

@@ -25,7 +25,7 @@ CREATE TABLE historialInteraccion (
 );
 
 
-CREATE TABLE match (
+CREATE TABLE matching (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user1Id INT NOT NULL,
   user2Id INT NOT NULL,

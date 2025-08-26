@@ -20,7 +20,6 @@ namespace Campuslove_Sheyla_Fabio.src.UI
                     .Color(Color.Pink1));
                 Console.WriteLine("Ingrese su email");
                 Console.WriteLine("Ingrese su contraseña");
-                );
             }
         }
     }

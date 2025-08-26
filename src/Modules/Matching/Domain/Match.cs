@@ -4,7 +4,7 @@ using Campuslove_Sheyla_Fabio.src.Modules.User.Domain.Entities;
 
 namespace Campuslove_Sheyla_Fabio.src.Modules.Matching.Domain.Entities
 {
-    [Table("match")]
+    [Table("matching")]
     public class Match
     {
         public int Id { get; set; }
