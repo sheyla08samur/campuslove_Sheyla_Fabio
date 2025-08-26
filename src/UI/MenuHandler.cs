@@ -144,7 +144,36 @@ namespace Campuslove_Sheyla_Fabio.src.UI
                 }));
 
             switch (selection[0])
-            {
+            {   
+                case '0':
+                    AnsiConsole.Clear();
+                    AnsiConsole.MarkupLine("[bold red]¡Tus Matches![/]");
+                    ConsultarTodosAsync();
+                    Console.ReadKey();
+                    break;
+                case '1':
+                    AnsiConsole.Clear();
+                    AnsiConsole.MarkupLine("[bold red]¡Tus Estadísticas![/]");
+                    ConsultarTodosAsync();
+                    AnsiConsole.Write(
+                            new FigletText("Mis estadisticas")
+                            .Centered()
+                            .Color(Color.Blue));
+                    AnsiConsole.Write(new Rule("[bold purple]\n❤️  Tus estadísticas en CampusLove ❤️[/]").Centered());
+                    var m_estadisticas = new Table();
+                    m_estadisticas.Border = TableBorder.Rounded;
+                    m_estadisticas.AddColumn("Tipo");
+                    m_estadisticas.AddColumn("Estadistica");
+                    m_estadisticas.AddRow("Mis Likes", "C");
+                    m_estadisticas.AddRow("Mis Dislikes", "R");
+                    m_estadisticas.AddRow("Likes Recibidos", GetLikesReceivedAsync().ToString());
+                    m_estadisticas.AddRow("Dislikes Recibidos", "R)");
+                    m_estadisticas.AddRow("Matches", "R");
+                    m_estadisticas.AddRow("6", "Salir");
+
+                        AnsiConsole.Write(m_estadisticas);
+                    Console.ReadKey();
+                    break;
                 case '2':
                     AnsiConsole.Clear();
                     AnsiConsole.MarkupLine("[bold red]¡Conoce Personas![/]");
