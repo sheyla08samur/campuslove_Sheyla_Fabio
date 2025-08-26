@@ -117,14 +117,13 @@ namespace Campuslove_Sheyla_Fabio.src.UI
             {
                 AnsiConsole.MarkupLine($"[bold green]\n✅ Bienvenido {usuario.Nombre}![/]");
                 Console.ReadKey();
-                MenuHome();
+                MenuHome(usuarioService);
             }
 
             Thread.Sleep(2000);
         }
 
-
-        private static void MenuHome()
+        private static void MenuHome(IUsuarioService usuarioService)
         {
             AnsiConsole.Clear();
             AnsiConsole.Write(
@@ -133,51 +132,64 @@ namespace Campuslove_Sheyla_Fabio.src.UI
                     .Color(Color.Pink1));
             AnsiConsole.MarkupLine("[bold blue]Menu Principal[/]");
 
-                var selection = AnsiConsole.Prompt(
-                    new SelectionPrompt<string>()
-                    .Title("[bold]Seleccione una opción[/]")
-                    .AddChoices(new[]
-                    {
-                        "0. Ver mis matches",
-                        "1. Ver mis estadisticas",
-                        "2. Conocer personas",
-                        "3. Salir"
-                    }));
-
-                switch (selection[0])
+            var selection = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                .Title("[bold]Seleccione una opción[/]")
+                .AddChoices(new[]
                 {
-                    case '0':
-                        LoadingAnimation.MostrarAnimacionCarga("Espera un momento...");
-                        AnsiConsole.Clear();
-                        ConsultarTodosAsync();
-                        break;
-                    case '1':
-                        LoadingAnimation.MostrarAnimacionCarga("Espera un momento...");
-                        AnsiConsole.Clear();
-                        // Mostrar menu    aqui falta contador 
-                        break;
-                    case '2':
-                        AnsiConsole.Clear();
-                        AnsiConsole.MarkupLine("[bold red]¡Gracias por usar CampusLove![/]");
-                        var usuarios = UsuarioService.SearchAsync(usuario); // lista todos
-                        foreach (var u in usuarios)
+                    "0. Ver mis matches",
+                    "1. Ver mis estadisticas",
+                    "2. Conocer personas",
+                    "3. Salir"
+                }));
+
+            switch (selection[0])
+            {
+                case '2':
+                    AnsiConsole.Clear();
+                    AnsiConsole.MarkupLine("[bold red]¡Conoce Personas![/]");
+                    var usuarios = usuarioService.SearchAsync().Result;
+
+                    foreach (var u in usuarios)
+                    {
+                        Console.WriteLine($"[{u.Id}] {u.Nombre} - {u.Carrera} - {u.Intereses}");
+                    }
+
+                    Console.Write("\nSelecciona el ID del usuario que quieres ver en detalle: ");
+                    if (int.TryParse(Console.ReadLine(), out int idSeleccionado))
+                    {
+                        var usuarioSeleccionado = usuarios.FirstOrDefault(u => u.Id == idSeleccionado);
+
+                        if (usuarioSeleccionado != null)
                         {
-                            Console.WriteLine($"[{u.Id}] {u.Nombre} - {u.Carrera} - {u.Intereses}");
+                            AnsiConsole.Clear();
+                            AnsiConsole.MarkupLine("[bold yellow]Información detallada del usuario[/]");
+                            Console.WriteLine($@"
+            ID: {usuarioSeleccionado.Id}
+            Nombre: {usuarioSeleccionado.Nombre}
+            Email: {usuarioSeleccionado.Email}
+            Edad: {usuarioSeleccionado.Edad}
+            Género: {usuarioSeleccionado.Genero}
+            Carrera: {usuarioSeleccionado.Carrera}
+            Intereses: {usuarioSeleccionado.Intereses}
+            Frase: {usuarioSeleccionado.Frase}
+            Me Gusta: {usuarioSeleccionado.meGusta}
+            No Me Gusta: {usuarioSeleccionado.noMeGusta}
+            ");
                         }
-
-                        break;
-                    case '3':
-                        AnsiConsole.Clear();
-                        AnsiConsole.MarkupLine("[bold red]¡Gracias por usar CampusLove![/]");
-
-                        break;
-                    default:
-                        AnsiConsole.MarkupLine("[bold red]Opción no válida. Por favor, intente de nuevo.[/]");
-                        Thread.Sleep(2000);
-                        MostrarMenuHandler(usuarioService);
-                        break;
-                }
+                        else
+                        {
+                            AnsiConsole.MarkupLine("[bold red]Usuario no encontrado[/]");
+                        }
+                    }
+                    else
+                    {
+                        AnsiConsole.MarkupLine("[bold red]ID inválido[/]");
+                    }
+                    break;
+            }
         }
+
 
         private static void ConsultarTodosAsync()
         {
