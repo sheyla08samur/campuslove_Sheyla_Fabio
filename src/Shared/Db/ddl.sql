@@ -1,0 +1,48 @@
+DROP DATABASE IF EXISTS campuslove;
+CREATE DATABASE campuslove;
+USE campuslove;
+
+CREATE TABLE usuario (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  contrasena VARCHAR(100) NOT NULL,
+  edad SMALLINT NOT NULL,
+  genero VARCHAR(20),
+  intereses TEXT NOT NULL,
+  carrera VARCHAR(100) NOT NULL,
+  frase TEXT NOT NULL,
+  meGusta INT DEFAULT 0,
+  noMeGusta INT DEFAULT 0
+);
+
+
+CREATE TABLE historialInteraccion (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  tipo VARCHAR(20) NOT NULL,
+  usuarioReceptorId INT NOT NULL,
+  FOREIGN KEY (usuarioReceptorId) REFERENCES usuario(id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE matching (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user1Id INT NOT NULL,
+  user2Id INT NOT NULL,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user1Id) REFERENCES usuario(id) ON DELETE RESTRICT,
+  FOREIGN KEY (user2Id) REFERENCES usuario(id) ON DELETE RESTRICT
+);
+
+
+CREATE TABLE likings (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    EmisorUsuarioId INT NOT NULL,
+    ReceptorUsuarioId INT NOT NULL,
+    IsLike BOOLEAN NOT NULL,
+    Fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT FK_Emisor FOREIGN KEY (EmisorUsuarioId) REFERENCES usuario(Id),
+    CONSTRAINT FK_Receptor FOREIGN KEY (ReceptorUsuarioId) REFERENCES usuario(Id)
+);
+
+
