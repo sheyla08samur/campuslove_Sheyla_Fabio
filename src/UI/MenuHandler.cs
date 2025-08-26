@@ -146,6 +146,13 @@ namespace Campuslove_Sheyla_Fabio.src.UI
 
             switch (selection[0])
             {
+                case '0':
+                    AnsiConsole.Clear();
+                    AnsiConsole.MarkupLine("[bold red]¡Tus Matches![/]");
+                    var matches0 = usuarioService.GetMatchesAsync(usuario.Id).Result;
+                    AnsiConsole.MarkupLine($"[bold green]Tienes {matches0} matches![/]");
+                    Console.ReadKey();
+                    break;
                 case '1':
                     AnsiConsole.Clear();
                     AnsiConsole.MarkupLine("[bold red]¡Tus Estadísticas![/]");

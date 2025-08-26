@@ -13,6 +13,7 @@ namespace Campuslove_Sheyla_Fabio.src.Modules.User.Applications.Interfaces
         Task<IEnumerable<Usuario>> SearchAsync(string? nombre = null, string? carrera = null, string? intereses = null);
 
         Task<int> GetLikesReceivedAsync(int userId);
+        Task<int> GetLikesReceivedAsync(Usuario usuario);
         Task<int> GetDislikesReceivedAsync(int userId);
         Task<int> GetMatchesAsync(int userId);
         Task<Usuario?> GetProfileAsync(int id);

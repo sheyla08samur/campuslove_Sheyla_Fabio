@@ -11,14 +11,13 @@ internal class Program
     {
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
         optionsBuilder.UseMySql(
-            "server=localhost;database=campuslove;user=root;password=Fabioandres2007;",
+            "server=localhost;database=campuslove;user=root;password=12345678;",
             new MySqlServerVersion(new Version(8, 0, 36))
         );
 
         var context = new AppDbContext(optionsBuilder.Options);
 
-        var usuarioRepository = new UsuarioRepository(context);
-        IUsuarioService usuarioService = new UsuarioService(usuarioRepository);
+        IUsuarioService usuarioService = new UsuarioService(context);
 
         // ✅ Pasamos el servicio ya configurado al menú
         MenuHandler.MostrarMenuHandler(usuarioService);

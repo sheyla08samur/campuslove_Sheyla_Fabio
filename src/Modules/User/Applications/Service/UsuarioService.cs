@@ -20,6 +20,13 @@ namespace Campuslove_Sheyla_Fabio.src.Modules.User.Applications.Service
                 .FirstOrDefaultAsync(u => u.Email == email && u.Contrasena == contrasena);
         }
 
+        public async Task<int> GetLikesReceivedAsync(Usuario usuario)
+        {
+        // If LikesReceived is a navigation property and may not be loaded, consider loading it:
+        await _context.Entry(usuario).Collection(u => u.LikesReceived).LoadAsync();
+        return usuario.LikesReceived.Count;
+        }
+
         public async Task RegisterAsync(Usuario usuario)
         {
             _context.Usuarios.Add(usuario);
