@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Campuslove_Sheyla_Fabio.src.Modules.HistorialInteraccion.Domain.Entities;
+using Campuslove_Sheyla_Fabio.src.Modules.HistorialInteraction.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

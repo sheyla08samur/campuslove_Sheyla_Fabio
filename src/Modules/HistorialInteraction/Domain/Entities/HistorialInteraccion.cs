@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Campuslove_Sheyla_Fabio.src.Modules.HistorialInteraction.Domain.Entities;
 using Campuslove_Sheyla_Fabio.src.Modules.User.Domain.Entities;
 
-namespace Campuslove_Sheyla_Fabio.src.Modules.HistorialInteraccion.Domain.Entities
+namespace Campuslove_Sheyla_Fabio.src.Modules.HistorialInteraction.Domain.Entities
 {
     [Table("historialInteraccion")]
     public class HistorialInteraccion

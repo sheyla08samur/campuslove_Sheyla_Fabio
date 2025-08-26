@@ -1,4 +1,4 @@
-namespace Campuslove_Sheyla_Fabio.src.Modules.HistorialInteraccion.Domain.Entities
+namespace Campuslove_Sheyla_Fabio.src.Modules.HistorialInteraction.Domain.Entities
 {
     public enum TipoInteraccion
     {

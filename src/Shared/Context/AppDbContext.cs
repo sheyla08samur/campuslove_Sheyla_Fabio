@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Campuslove_Sheyla_Fabio.src.Modules.HistorialInteraccion.Domain.Entities;
+using Campuslove_Sheyla_Fabio.src.Modules.HistorialInteraction.Domain.Entities;
 using Campuslove_Sheyla_Fabio.src.Modules.Liking.Entities;
 using Campuslove_Sheyla_Fabio.src.Modules.User.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
