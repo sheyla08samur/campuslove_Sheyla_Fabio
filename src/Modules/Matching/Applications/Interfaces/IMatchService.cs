@@ -9,5 +9,7 @@ namespace Campuslove_Sheyla_Fabio.src.Modules.Matching.Applications.Interfaces
     public interface IMatchService
     {
         Task<IEnumerable<Match>> GetUserMatchesAsync(int userId);
+        Task<IEnumerable<Match>> ConsultarPorUsuarioAsync(int userId);
+        Task<Match> RegistrarMatchAsync(int user1Id, int user2Id);
     }
 }
