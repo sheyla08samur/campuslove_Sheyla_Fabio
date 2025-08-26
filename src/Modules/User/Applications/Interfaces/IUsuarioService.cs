@@ -8,9 +8,13 @@ namespace Campuslove_Sheyla_Fabio.src.Modules.User.Applications.Interfaces
 {
     public interface IUsuarioService
     {
-        Task<Usuario?> GetProfileAsync(int id);
         Task RegisterAsync(Usuario user);
         Task<Usuario?> LoginAsync(string email, string contrasena);
         Task<IEnumerable<Usuario>> SearchAsync(string? nombre = null, string? carrera = null, string? intereses = null);
+
+        Task<int> GetLikesReceivedAsync(int userId);
+        Task<int> GetDislikesReceivedAsync(int userId);
+        Task<int> GetMatchesAsync(int userId);
+        Task<Usuario?> GetProfileAsync(int id);
     }
 }

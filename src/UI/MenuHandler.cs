@@ -117,13 +117,14 @@ namespace Campuslove_Sheyla_Fabio.src.UI
             {
                 AnsiConsole.MarkupLine($"[bold green]\n✅ Bienvenido {usuario.Nombre}![/]");
                 Console.ReadKey();
-                MenuHome(usuarioService);
+                // ✅ le paso el usuario a MenuHome
+                MenuHome(usuarioService, usuario);
             }
 
             Thread.Sleep(2000);
         }
 
-        private static void MenuHome(IUsuarioService usuarioService)
+        private static void MenuHome(IUsuarioService usuarioService, Usuario usuario)
         {
             AnsiConsole.Clear();
             AnsiConsole.Write(
@@ -144,34 +145,27 @@ namespace Campuslove_Sheyla_Fabio.src.UI
                 }));
 
             switch (selection[0])
-            {   
-                case '0':
-                    AnsiConsole.Clear();
-                    AnsiConsole.MarkupLine("[bold red]¡Tus Matches![/]");
-                    ConsultarTodosAsync();
-                    Console.ReadKey();
-                    break;
+            {
                 case '1':
                     AnsiConsole.Clear();
                     AnsiConsole.MarkupLine("[bold red]¡Tus Estadísticas![/]");
-                    ConsultarTodosAsync();
-                    AnsiConsole.Write(
-                            new FigletText("Mis estadisticas")
-                            .Centered()
-                            .Color(Color.Blue));
-                    AnsiConsole.Write(new Rule("[bold purple]\n❤️  Tus estadísticas en CampusLove ❤️[/]").Centered());
+
+                    var likesRecibidos = usuarioService.GetLikesReceivedAsync(usuario.Id).Result;
+                    var dislikesRecibidos = usuarioService.GetDislikesReceivedAsync(usuario.Id).Result;
+                    var matches = usuarioService.GetMatchesAsync(usuario.Id).Result;
+
                     var m_estadisticas = new Table();
                     m_estadisticas.Border = TableBorder.Rounded;
                     m_estadisticas.AddColumn("Tipo");
-                    m_estadisticas.AddColumn("Estadistica");
-                    m_estadisticas.AddRow("Mis Likes", "C");
-                    m_estadisticas.AddRow("Mis Dislikes", "R");
-                    m_estadisticas.AddRow("Likes Recibidos", GetLikesReceivedAsync().ToString());
-                    m_estadisticas.AddRow("Dislikes Recibidos", "R)");
-                    m_estadisticas.AddRow("Matches", "R");
-                    m_estadisticas.AddRow("6", "Salir");
+                    m_estadisticas.AddColumn("Cantidad");
 
-                        AnsiConsole.Write(m_estadisticas);
+                    m_estadisticas.AddRow("Mis Likes", usuario.meGusta.ToString());
+                    m_estadisticas.AddRow("Mis Dislikes", usuario.noMeGusta.ToString());
+                    m_estadisticas.AddRow("Likes Recibidos", likesRecibidos.ToString());
+                    m_estadisticas.AddRow("Dislikes Recibidos", dislikesRecibidos.ToString());
+                    m_estadisticas.AddRow("Matches", matches.ToString());
+
+                    AnsiConsole.Write(m_estadisticas);
                     Console.ReadKey();
                     break;
                 case '2':
